@@ -9,10 +9,9 @@ def checkout = new org.checkout()
 
 pipeline {
      agent {
-     kubernetes {
-      retries 2
-      yamlFile 'KubernetesPod.yaml'   
-    }
+  node { 
+            label "master"
+        }
   }
     options {
         skipDefaultCheckout true
