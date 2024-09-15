@@ -9,7 +9,7 @@ def checkout = new org.checkout()
 
 pipeline {
      agent {
-    kubernetes {
+     kubernetes {
       retries 2
       yamlFile 'KubernetesPod.yaml'   
     }
