@@ -8,7 +8,12 @@ def tools = new org.color()
 def checkout = new org.checkout()
 
 pipeline {
-    agent any
+     agent {
+    kubernetes {
+      retries 2
+      yamlFile 'KubernetesPod.yaml'   
+    }
+  }
     options {
         skipDefaultCheckout true
     }
@@ -20,6 +25,7 @@ pipeline {
                 checkout scmGit(branches: [[name: "${env.branchName}"]], 
                     extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub_SSH_Credentials', 
                     url: "${env.srcUrl}"]])
+                sh "ls -l"
                 }
             }        
         }
