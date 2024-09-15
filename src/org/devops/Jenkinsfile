@@ -1,0 +1,27 @@
+#!groovy
+
+//使用共享库
+@Library('jenkins-shared-library@main') _
+
+//调用函数
+def tools = new org.color()
+def checkout = new org.checkout()
+
+pipeline {
+    agent any
+    options {
+        skipDefaultCheckout true
+    }
+
+    stages{
+    stage("GetCode"){
+        steps{
+            script{
+                checkout scmGit(branches: [[name: "${env.branchName}"]], 
+                    extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub_SSH_Credentials', 
+                    url: "${env.srcUrl}"]])
+                }
+            }        
+        }
+    }
+}
