@@ -6,7 +6,7 @@
 //调用函数
 
 
-currentBuild.deplayName = "${env.branchName}"
+currentBuild.displayName = "${env.branchName}"
 currentBuild.description = "xxx"
 
 pipeline {
