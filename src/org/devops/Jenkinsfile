@@ -38,7 +38,7 @@ pipeline {
         steps{
             script{
                 checkout scmGit(branches: [[name: "${env.branchName}"]], 
-                    extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub_SSH_Credentials', 
+                    extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub_credentials', 
                     url: "${env.srcUrl}"]])
                 sh "ls -l"
                 }
