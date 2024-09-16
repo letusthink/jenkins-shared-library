@@ -40,7 +40,7 @@ pipeline {
                 checkout scmGit(branches: [[name: "${env.branchName}"]], 
                     extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub_credentials', 
                     url: "${env.srcUrl}"]])
-                sh "ls -l"
+                sh "ls -l "
                 }
             }        
         }
