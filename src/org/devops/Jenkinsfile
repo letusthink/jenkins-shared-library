@@ -8,11 +8,12 @@ def tools = new org.color()
 def checkout = new org.checkout()
 
 pipeline {
-     agent {
-  node { 
-            label "master"
+    agent {
+        kubernetes {
+            retries 2
+            yamlFile 'KubernetesPod.yaml'   
         }
-  }
+    }
     options {
         skipDefaultCheckout true
     }
