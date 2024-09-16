@@ -4,8 +4,7 @@
 @Library('jenkins-shared-library@main') _
 
 //调用函数
-def tools = new org.color()
-def checkout = new org.checkout()
+
 
 pipeline {
     agent {
