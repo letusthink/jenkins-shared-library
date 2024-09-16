@@ -26,11 +26,6 @@ pipeline {
                 command:
                 - cat
                 tty: true                                
-              - name: kubectl  
-                image: registry.cn-hangzhou.aliyuncs.com/tool-bucket/tool:kubectl
-                command:  
-                - cat  
-                tty: true  
             '''
         }
     }
