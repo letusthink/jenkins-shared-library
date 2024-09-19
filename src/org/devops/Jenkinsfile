@@ -6,9 +6,12 @@
 //调用函数
 
 
-currentBuild.displayName = "${env.branchName}"
-currentBuild.description = "xxx"
+//Parameters
+env.serviceName = "${JOB_NAME}".split('_')[0] - "-service"
 
+
+currentBuild.displayName = "${env.branchName}"
+currentBuild.description = "serviceName: ${env.serviceName}"
 
 pipeline {
     agent {
@@ -42,6 +45,7 @@ pipeline {
     parameters {
         choice choices: ['https://github.com/letusthink/devops8-microservices-backend.git'], name: 'srcUrl'
         string defaultValue: 'RELEASE-1.1.1', name: 'branchName', trim: true
+       // string defaultValue: 'mvn clean package -pl 指定模块名称 -am', name: 'buildShell', trim: true
     }
 
 
@@ -54,6 +58,13 @@ pipeline {
                         userRemoteConfigs: [[credentialsId: 'GitHub_credentials', 
                         url: "${env.srcUrl}"]])
                     sh "ls -l"
+                }
+            }        
+        }
+        stage("Build") {
+            steps {
+                script {
+                    sh "mvn clean package -pl ${env.serviceName} -am"
                 }
             }        
         }
