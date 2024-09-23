@@ -1,12 +1,12 @@
 #!groovy
 
-//使用共享库
+// 使用共享库
 @Library('jenkins-shared-library@main') _
 
-//调用函数
+// 调用函数
 
 
-//Parameters
+// Parameters
 env.serviceName = "${JOB_NAME}".split('_')[0] - "-service"
 
 
@@ -64,7 +64,14 @@ pipeline {
         stage("Build") {
             steps {
                 script {
-                    sh "mvn clean package -pl ${env.serviceName} -am"
+                    // 下载settings.xml
+                    settings = libraryResource 'config/settings.xml'
+                    writeFile file: 'settings.xml', text: settings
+                    sh """
+                        ls -l
+                        mvn clean package -pl ${env.serviceName} -am -s settings.xml
+                        ls -l ${env.serviceName}/target/
+                    """
                 }
             }        
         }
